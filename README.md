@@ -11,6 +11,11 @@ $ make install
 $ make uninstall
 ```
 
+## Configuration
+The only configuration it needs is specify the AWS credentials. You can take a look at [boto3 documentation](http://boto3.readthedocs.io/en/latest/guide/configuration.html#configuring-credentials) in order to configure them.
+
+TL;DR: You can just export the following variables `AWS_SECRET_ACCESS_KEY` & `AWS_ACCESS_KEY_ID`.
+
 ## Usage
 ```
 $ describe_ec2_instance <instance_id>
@@ -23,8 +28,9 @@ InstanceType:        c3.large
 ```
 
 ## Docker
-Maybe you prefer to run it using a container (so you don't have to install Python and/or its libraries).
+If you prefer to run it using a container (so you don't have to install Python and/or its libraries).
 
+You can find it on 
 ```
 $ docker run -it -e AWS_SECRET_ACCESS_KEY="<AWS_SECRET_ACCESS_KEY>" -e "AWS_ACCESS_KEY_ID=<AWS_ACCESS_KEY_ID>" vidimensional/describe_ec2_instances ${INSTANCE_ID}
 ```
