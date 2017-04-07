@@ -8,7 +8,7 @@ parser.add_argument("instance_id", help="Insance ID from where retreive the info
 args = parser.parse_args()
 
 def print_tag(key, tags):
-    space = 20 - len(key)
+    space = 30 - len(key)
     try:
         tag = tags[key]
     except KeyError:
@@ -19,12 +19,12 @@ ec2 = boto3.client('ec2', region_name='us-east-1')
 instances = ec2.describe_instances(InstanceIds=[args.instance_id])['Reservations'][0]['Instances']
 for instance in instances:
     print_tag('InstanceId', instance)
-    tags = { tag['Key']: tag['Value'] for tag in instance['Tags'] }
-    print_tag('Role', tags)
-    print_tag('Env', tags)
     print_tag('PrivateIpAddress', instance)
     print_tag('PrivateDnsName', instance)
     print_tag('PublicIpAddress', instance)
     print_tag('PublicDnsName', instance)
     print_tag('InstanceType', instance)
     print_tag('AvailabilityZone', instance['Placement'])
+    tags = { 'tag_'+tag['Key']: tag['Value'] for tag in instance['Tags'] }
+    for key in tags:
+        print_tag(key, tags)
