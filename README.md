@@ -1,5 +1,5 @@
 # describe_ec2_instance
-Get information of an EC2 instance given its `instance_id`.
+Get information of an EC2 instance given its `instance_id` or `histname`.
 
 ## Installing
 ```
@@ -18,7 +18,7 @@ TL;DR: You can just export the following variables `AWS_SECRET_ACCESS_KEY` & `AW
 
 ## Usage
 ```
-$ describe_ec2_instance <instance_id>
+$ describe_ec2_instance <instance_id/hostname>
 InstanceId:          i-12345678901234567
 PrivateIpAddress:    1.2.3.4
 PrivateDnsName:      ip-1-2-3-4.ec2.internal
