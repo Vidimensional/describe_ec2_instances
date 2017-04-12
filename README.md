@@ -1,5 +1,5 @@
 # describe_ec2_instance
-Get information of an EC2 instance given its `instance_id` or `histname`.
+Get information of an EC2 instance given its `instance_id` or `hostname`.
 
 ## Installing
 ```
