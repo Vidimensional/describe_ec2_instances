@@ -20,11 +20,13 @@ TL;DR: You can just export the following variables `AWS_SECRET_ACCESS_KEY` & `AW
 ```
 $ describe_ec2_instance <instance_id/hostname>
 InstanceId:          i-12345678901234567
+State:               running
 PrivateIpAddress:    1.2.3.4
 PrivateDnsName:      ip-1-2-3-4.ec2.internal
 PublicIpAddress:     9.8.7.6
 PublicDnsName:       ec2-9-8-7-6.compute-1.amazonaws.com
 InstanceType:        c3.large
+AvailabilityZone:    us-east-1a
 tag_NameTag1:        valueTag1
 tag_nameTagN:        valueTagN
 ```
