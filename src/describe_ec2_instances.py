@@ -8,13 +8,15 @@ parser = argparse.ArgumentParser(description="Get information of an EC2 instance
 parser.add_argument("identificator", help="Instance id or hostname from where retreive the info.")
 args = parser.parse_args()
 
-def print_tag(key, tags):
-    space = 30 - len(key)
+def print_tag(key, tags, tag_name=None):
+    if not tag_name:
+        tag_name = key
+    space = 30 - len(tag_name)
     try:
         tag = tags[key]
     except KeyError:
         tag = '*None*'
-    print("%s:%s%s" % (key, ' '*space, tag))
+    print("%s:%s%s" % (tag_name, ' '*space, tag))
 
 ec2 = boto3.client('ec2', region_name='us-east-1')
 
@@ -25,6 +27,7 @@ else:
 
 for instance in instances:
     print_tag('InstanceId', instance)
+    print_tag('Name', instance['State'], tag_name='State')
     print_tag('PrivateIpAddress', instance)
     print_tag('PrivateDnsName', instance)
     print_tag('PublicIpAddress', instance)
