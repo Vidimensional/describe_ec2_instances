@@ -18,14 +18,20 @@ def print_tag(key, tags, tag_name=None):
         tag = '*None*'
     print("%s:%s%s" % (tag_name, ' '*space, tag))
 
+def is_instance_id(identificator):
+    old_instance_id_regexp = '^i-[0-9]{8}'
+    new_instance_id_regexp = '^i-[a-z0-9]{17}'
+    return re.match(old_instance_id_regexp, identificator) or \
+           re.match(new_instance_id_regexp, identificator)
+
 ec2 = boto3.client('ec2', region_name='us-east-1')
 
-old_instance_id_regexp = '^i-[0-9]{8}'
-new_instance_id_regexp = '^i-[a-z0-9]{17}'
-if re.match(old_instance_id_regexp, args.identificator) or re.match(new_instance_id_regexp, args.identificator):
-    instances = ec2.describe_instances(InstanceIds=[args.identificator])['Reservations'][0]['Instances']
+if is_instance_id(args.identificator):
+    instances_description = ec2.describe_instances(InstanceIds=[args.identificator])
 else:
-    instances = ec2.describe_instances(Filters=[{'Name':'private-dns-name', 'Values':[args.identificator+'.ec2.internal']}])['Reservations'][0]['Instances']
+    instance_filter = [{'Name':'private-dns-name', 'Values':[args.identificator+'.ec2.internal']}]
+    instances_description = ec2.describe_instances(Filters=instance_filter)
+instances = instances_description['Reservations'][0]['Instances']
 
 for instance in instances:
     print_tag('InstanceId', instance)
